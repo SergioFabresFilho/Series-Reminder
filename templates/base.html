@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Series Reminder</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a href="" class="navbar-brand">Series Reminder</a>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'core:user_logout' %}" class="nav-link">Log out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'core:user_login' %}" class="nav-link">Log in</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'core:register' %}" class="nav-link">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container">
+        {% block body_block %}
+        {% endblock body_block %}
+    </div>
+</body>
+</html>
