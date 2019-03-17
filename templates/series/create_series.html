@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h2>Add Series</h2>
+
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <table class="table">
+                {{ series_form.as_table }}
+            </table>
+            <input type="submit" value="Confirm" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock body_block %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        {% if series_list %}
+            <table class="table" style="font-size: 125%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Episode</th>
+                        <th scope="col">Season</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for series in series_list %}
+                        <tr>
+                            <td>{{ series.name }}</td>
+                            <form enctype="multipart/form-data" method="POST"
+                                  action="{% url 'series:update_series' series_id=series.id %}">
+                                {% csrf_token %}
+                                <td><input type="number" name="episode_input" name="episode_input" value="{{ series.episode }}"></td>
+                                <td><input type="number" name="season_input" name="season_input" value="{{ series.season }}"></td>
+                                <td><input type="submit" value="Update" class="btn btn-outline-success"></td>
+                            </form>
+
+                            <td><a href="{% url 'series:delete_series' series.id %}"
+                                   class="btn btn-outline-danger"
+                                   onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <a href="{% url 'series:create_series' %}" class="btn btn-primary">Add Series</a>
+    </div>
+{% endblock body_block %}
