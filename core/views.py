@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -18,12 +18,11 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            # TODO add decent return
-            return HttpResponse('You`ve been registered')
+            return HttpResponseRedirect(reverse('series:list_series'))
 
         else:
             print(user_form.errors)
-            return HttpResponse('Invalid form')
+            return generic_message(request, 'Invalid form')
 
     else:
         user_form = UserForm()
@@ -44,8 +43,7 @@ def user_login(request):
 
             if user:
                 login(request, user)
-                # TODO add decent redirection
-                return HttpResponse('You\'ve logged in!')
+                return HttpResponseRedirect(reverse('series:list_series'))
 
             else:
                 return generic_message(request, 'Invalid login.')
@@ -60,5 +58,4 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    # TODO redirect correctly
-    return generic_message(request, 'You logged out')
+    return HttpResponseRedirect(reverse('core:user_login'))

@@ -12,22 +12,36 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous">
     </script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a href="" class="navbar-brand">Series Reminder</a>
+        <a href="{% if user.is_authenticated %}
+                    {% url 'series:list_series' %}
+                {% endif %}"
+           class="navbar-brand"
+        >Series Reminder</a>
         <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link">Github</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{% url 'core:user_logout' %}" class="nav-link">Log out</a>
+                    <a class="nav-link"><span class="fa fa-user" style="padding-right: 5px;"></span>{{ user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'core:user_logout' %}"  class="nav-link"><span class="fa fa-sign-out"></span>Log out</a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a href="{% url 'core:user_login' %}" class="nav-link">Log in</a>
+                    <a href="{% url 'core:user_login' %}" class="nav-link"><span class="fa fa-sign-in"style="padding-right: 3px;"></span>Log in</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{% url 'core:register' %}" class="nav-link">Register</a>
+                    <a href="{% url 'core:register' %}" class="nav-link"><span class="fa fa-user-plus"style="padding-right: 3px;"></span>Register</a>
                 </li>
             {% endif %}
         </ul>

@@ -14,7 +14,7 @@
                 <tbody>
                     {% for series in series_list %}
                         <tr>
-                            <td>{{ series.name }}</td>
+                            <td class="series_name">{{ series.name }}</td>
                             <form enctype="multipart/form-data" method="POST"
                                   action="{% url 'series:update_series' series_id=series.id %}">
                                 {% csrf_token %}
